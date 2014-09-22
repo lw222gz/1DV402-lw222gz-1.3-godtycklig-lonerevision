@@ -16,108 +16,107 @@ namespace Labb_1._3
             //Step 4: Add all rules, amunt > 2, try-catch if not a valid number etc.
             //Step 5: Tidy up the code.
 
-            //Step 1
-            int amount = ReadInt("Ange antalet löner: ");
+            int amount = 0;           
+            bool loop = false;
+            
+            do
+            {
+            do           
+            {                
+            amount = ReadInt("Ange antalet löner: ");
+                loop = false;
+                        
+                Console.WriteLine();
 
-            Console.WriteLine();
+                if (amount < 2)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("För liten mängd löner. För ny beräkning håll inne valfri tangent - ESC avslutar");
+                    Console.ResetColor();
+                    loop = true;
+                    if (Console.ReadKey(true).Key != ConsoleKey.Escape)
+                    {
+                        loop = true;
+                    }
+                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+                }
+                }while (loop == true);                    
+                
+                ProcessSalaries(amount);
 
-            //Step 2
-            ProcessSalaries(amount);
+                Console.WriteLine();
+
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.WriteLine("Tryck valfri tangent för att göra en omberäkning - Esc avslutar");
+                Console.ResetColor();
+                Console.ReadKey();
+            
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+           
         }
 
-        static int ReadInt(string question)
+        static int ReadInt(string prompt)
         {
             bool loop = false;
             int quantity = 0;
-
-
+            
             do
             {
+                string input;
+                Console.Write(prompt);
+                input = Console.ReadLine();
                 try
                 {
-                    Console.Write(question);
-                    quantity = int.Parse(Console.ReadLine()); //TEST! !!!!!!!!!!!!!!!----------------------
-
+                    
+                    quantity = int.Parse(input);                    
                     loop = false;
-
-
-                    // DON'T KNOW IF APPROVED!
-                        if (quantity < 2)
-                        {
-                            Console.BackgroundColor = ConsoleColor.Green;
-                            Console.WriteLine("För ny beräkning håll inne valfri tangent - ESC avslutar");
-                            Console.ResetColor();
-                            ConsoleKeyInfo kvt;
-                            kvt = Console.ReadKey();
-                            if (Console.ReadKey(true).Key != ConsoleKey.Escape)
-                            {
-                                loop = true;
-                            }
-                            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                            {
-                                Environment.Exit(0);
-                            }
-                        
-                                                                                      
-                         }
-
+                                          
                     }
-                    catch // !! INTE KLAR MED DETTA ÄN !!
+                    catch
                         {
                         Console.WriteLine();
                         Console.BackgroundColor = ConsoleColor.Red;
-                        Console.WriteLine("FEL! {0} tolkas inte som ett heltal.", quantity); 
+                        Console.WriteLine("FEL! {0} kan inte tolkas som ett heltal", input);
+                        Console.ResetColor();
                         Console.WriteLine();
                         loop = true;                   
                         }
 
                 } while (loop == true);
  
-            return quantity;
+            return quantity;                                              
             }
 
 
 
-        static void ProcessSalaries(int count)
-        {           
-            int[] payment = new int[count];
-            int[] presentation = new int[count];
-            // Step 2
-            bool loop = true;
-            do
-                try
+        static void ProcessSalaries(int quantity)
+        {
+
+        int salarynummber = 1;
+        int[] payment = new int[quantity];
+        
+
+        bool loop = false;
+        do
+        {
+                for (int i = 0; i < quantity; ++i)
                 {
-                    for (int i = 0; count > i; ++i)
-                    {
-                        Console.Write("Ange lön nummber {0,2}: ", i + 1);
-                        payment[i] = int.Parse(Console.ReadLine());
-                        presentation[i] = payment[i];
-                        loop = false;                        
-                    }
-                }
-                catch
-                    {
-                        Console.WriteLine();
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.WriteLine("FEL! Kunde inte läsas in som ett hel tal");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        loop = true;
-
-                    } while (loop == true);
-
-
+                    payment[i] = ReadInt("Ange lön nr: " + salarynummber + ": ");
+                    ++salarynummber;
+                    loop = false;
+                }            
+        } while (loop == true);
             
-            
-            
-
-            //Step 3
+            int[] presentation = (int[])payment.Clone();
+           
             Console.WriteLine();
             Console.WriteLine("-------------------------------------------------");
 
             Array.Sort(payment);
-            
-            
+                       
             int diffrence = payment.Max() - payment.Min();
             
             Console.WriteLine("Löneskillnad :       {0:c0}", diffrence);           
@@ -138,18 +137,15 @@ namespace Labb_1._3
             }
 
             Console.WriteLine("-------------------------------------------------");
-                      
-            int col = 1;
+                                  
                 for (int i = 0; i < payment.Length; ++i)
                     {
-                        Console.Write("   {0,5} ", presentation[i]); // Presentation variabel används här
-
-                            if (col > 2)
-                        {
-                            col = 0;
+                        if (i % 3 == 0)
+                        {                          
                             Console.WriteLine();
-                        }
-                    ++col;
+                        } 
+
+                        Console.Write("   {0,5} ", presentation[i]);                                            
                     }            
                     
             Console.WriteLine();                        
