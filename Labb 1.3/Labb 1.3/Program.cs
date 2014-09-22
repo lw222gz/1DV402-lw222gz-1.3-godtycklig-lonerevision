@@ -49,7 +49,7 @@ namespace Labb_1._3
 
                 Console.WriteLine();
 
-                Console.BackgroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("Tryck valfri tangent för att göra en omberäkning - Esc avslutar");
                 Console.ResetColor();
                 Console.ReadKey();
@@ -77,12 +77,12 @@ namespace Labb_1._3
                     }
                     catch
                         {
-                        Console.WriteLine();
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.WriteLine("FEL! {0} kan inte tolkas som ett heltal", input);
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        loop = true;                   
+                            Console.WriteLine();
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.WriteLine("FEL! {0} kan inte tolkas som ett heltal", input);
+                            Console.ResetColor();
+                            Console.WriteLine();
+                            loop = true;                   
                         }
 
                 } while (loop == true);
@@ -109,8 +109,10 @@ namespace Labb_1._3
                     loop = false;
                 }            
         } while (loop == true);
-            
+           
             int[] presentation = (int[])payment.Clone();
+
+
            
             Console.WriteLine();
             Console.WriteLine("-------------------------------------------------");
