@@ -95,14 +95,12 @@ namespace Labb_1._3
         static void ProcessSalaries(int quantity)
         {
 
-        int salarynummber = 1;
         int[] payment = new int[quantity];
         
         
         for (int i = 0; i < quantity; ++i)
             {
-                payment[i] = ReadInt("Ange lön nr: " + salarynummber + ": ");
-                ++salarynummber;
+                payment[i] = ReadInt("Ange lön nr: "+ (1+i) +": ");                
             }                    
            
         int[] presentation = (int[])payment.Clone();
