@@ -98,19 +98,14 @@ namespace Labb_1._3
         int salarynummber = 1;
         int[] payment = new int[quantity];
         
-
-        bool loop = false;
-        do
-        {
-                for (int i = 0; i < quantity; ++i)
-                {
-                    payment[i] = ReadInt("Ange lön nr: " + salarynummber + ": ");
-                    ++salarynummber;
-                    loop = false;
-                }            
-        } while (loop == true);
+        
+        for (int i = 0; i < quantity; ++i)
+            {
+                payment[i] = ReadInt("Ange lön nr: " + salarynummber + ": ");
+                ++salarynummber;
+            }                    
            
-            int[] presentation = (int[])payment.Clone();
+        int[] presentation = (int[])payment.Clone();
 
 
            
