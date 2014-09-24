@@ -17,42 +17,33 @@ namespace Labb_1._3
             //Step 5: Tidy up the code.
 
             int amount = 0;           
-            bool loop = false;
             
+            //the loop for the entire program
             do
             {
-            do           
-            {                
-            amount = ReadInt("Ange antalet löner: ");
-                loop = false;
-                        
-                Console.WriteLine();
-
-                if (amount < 2)
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("För liten mängd löner. För ny beräkning håll inne valfri tangent - ESC avslutar");
-                    Console.ResetColor();
-                    loop = true;
-                    if (Console.ReadKey(true).Key != ConsoleKey.Escape)
-                    {
-                        loop = true;
-                    }
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                    {
-                        return;
-                    }
-                }
-                }while (loop == true);                    
                 
-                ProcessSalaries(amount);
+                    Console.Clear();
+                    amount = ReadInt("Ange antalet löner: ");
+                                           
+                    Console.WriteLine();
 
+                    if (amount > 1)
+                    {
+                        ProcessSalaries(amount);
+                    }
+
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.WriteLine("För liten mängd löner.");
+                        Console.ResetColor();
+                    }
+                
                 Console.WriteLine();
-
                 Console.BackgroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("Tryck valfri tangent för att göra en omberäkning - Esc avslutar");
                 Console.ResetColor();
-                Console.ReadKey();
+
             
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
            
@@ -60,7 +51,7 @@ namespace Labb_1._3
 
         static int ReadInt(string prompt)
         {
-            bool loop = false;
+          
             int quantity = 0;
             
             do
@@ -71,21 +62,21 @@ namespace Labb_1._3
                 try
                 {
                     
-                    quantity = int.Parse(input);                    
-                    loop = false;
+                    quantity = int.Parse(input);
+                    break;
+                                          
+                }
+                catch
+                    {
+                        Console.WriteLine();
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.WriteLine("FEL! {0} kan inte tolkas som ett heltal", input);
+                        Console.ResetColor();
+                        Console.WriteLine();
                                           
                     }
-                    catch
-                        {
-                            Console.WriteLine();
-                            Console.BackgroundColor = ConsoleColor.Red;
-                            Console.WriteLine("FEL! {0} kan inte tolkas som ett heltal", input);
-                            Console.ResetColor();
-                            Console.WriteLine();
-                            loop = true;                   
-                        }
 
-                } while (loop == true);
+                } while (true);
  
             return quantity;                                              
             }
@@ -97,16 +88,18 @@ namespace Labb_1._3
 
         int[] payment = new int[quantity];
         
-        
+        //reads in the values to an array
         for (int i = 0; i < quantity; ++i)
             {
+               // string.Format("Ange lön nummer {0}:", i+1)
                 payment[i] = ReadInt("Ange lön nr: "+ (1+i) +": ");                
             }                    
-           
+        
+        //copying the array for presentation reasons.
         int[] presentation = (int[])payment.Clone();
 
 
-           
+        // calculating the median, avarage and  wage diffriential  
             Console.WriteLine();
             Console.WriteLine("-------------------------------------------------");
 
@@ -132,7 +125,8 @@ namespace Labb_1._3
             }
 
             Console.WriteLine("-------------------------------------------------");
-                                  
+               
+           //presentation of the array values with use of the clone.        
                 for (int i = 0; i < payment.Length; ++i)
                     {
                         if (i % 3 == 0)
